@@ -1,0 +1,26 @@
+void Lucky_Clover::BuscarporId(void){
+    if(head == nullptr){
+        cout << "La lista esta vacia.\n";
+        return;
+    }
+
+    int idBuscar;
+    cout << "Digite el id a buscar: ";
+    cin >> idBuscar;
+
+    Quirales *aux = head;
+
+    while(aux != nullptr){
+        if(aux->id == idBuscar){
+            cout << "Paquete encontrado:\n";
+            cout << "Id: " << aux->id << endl;
+            cout << "Nombre: " << aux->name << endl;
+            cout << "Peso: " << aux->weight << endl;
+            return;
+        }
+
+        aux = aux->sig;
+    }
+
+    cout << "No se encontro el paquete.\n";
+}
