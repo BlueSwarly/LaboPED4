@@ -1,0 +1,12 @@
+Lucky_Clover::~Lucky_Clover(){
+    Quirales *aux = head;
+
+    while(aux != nullptr){
+        Quirales *temp = aux;
+        aux = aux->sig;
+        delete temp;
+    }
+
+    head = tail = nullptr;
+}
+// te subi todad mis partes individales porque no me dejaba hacer push en vs, entonces mi compa los unio en el main
