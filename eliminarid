@@ -1,0 +1,46 @@
+void Lucky_Clover::EliminarporId(void){
+    if(head == nullptr){
+        cout << "Lista vacia.\n";
+        return;
+    }
+
+    int idEliminar;
+    cout << "Digite el id a eliminar: ";
+    cin >> idEliminar;
+
+    Quirales *aux = head;
+
+    while(aux != nullptr){
+
+        if(aux->id == idEliminar){
+
+            // solo un nodo
+            if(head == tail){
+                head = tail = nullptr;
+            }
+            // borrar primero
+            else if(aux == head){
+                head = head->sig;
+                head->ant = nullptr;
+            }
+            // borrar ultimo
+            else if(aux == tail){
+                tail = tail->ant;
+                tail->sig = nullptr;
+            }
+            // borrar en medio
+            else{
+                aux->ant->sig = aux->sig;
+                aux->sig->ant = aux->ant;
+            }
+
+            delete aux;
+            cout << "Paquete eliminado correctamente.\n";
+            return;
+        }
+
+        aux = aux->sig;
+    }
+
+    cout << "No se encontro el paquete.\n";
+}
