@@ -1,0 +1,17 @@
+void Lucky_Clover::MostrarFinal(void){
+    if (tail != nullptr){
+        Quirales *Rito = tail;
+
+        while(Rito != nullptr){
+            cout << "id para la orden: " << Rito->id << endl;
+            cout << "Nombre: " << Rito->name << endl;
+            cout << "Peso del paquete: " << Rito->weight << endl;
+            cout << "---------------------\n";
+
+            Rito = Rito->ant;
+        }
+    }
+    else{
+        cout << "Aun no hay paquetes en la lista " << endl;
+    }
+}
