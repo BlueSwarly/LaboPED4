@@ -49,6 +49,16 @@ void Lucky_Clover::InsertarInicio(void)
 
     cout << "Digite el id para la orden: ";
     cin >> id;
+
+    Quirales* aux = head;
+    while (aux != nullptr) {
+        if (aux->id == id) {
+            cout << "ID ya registrado\n";
+            return;
+        }
+        aux = aux->sig;
+    }
+
     cout << "Dijite el nombre: ";
     getline(cin >> ws, name);
     cout << "Digite el peso del paquete: ";
@@ -81,6 +91,16 @@ void Lucky_Clover::InsertarFinal(void)
 
     cout << "Digite el id para la orden: ";
     cin >> id;
+
+    Quirales* aux = head;
+    while (aux != nullptr) {
+        if (aux->id == id) {
+            cout << "ID ya registrado\n";
+            return;
+        }
+        aux = aux->sig;
+    }
+
     cout << "Dijite el nombre: ";
     getline(cin >> ws, name);
     cout << "Digite el peso del paquete: ";
