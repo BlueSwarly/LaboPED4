@@ -2,7 +2,8 @@
 #include <fstream>
 using namespace std;
 
-struct Quirales{
+struct Quirales
+{
     int id;
     string name;
     float weight;
@@ -11,12 +12,13 @@ struct Quirales{
     Quirales *ant;
 };
 
-class Lucky_Clover{
-    private:
-    Quirales *head; //pInicio
-    Quirales *tail; //pFinal
+class Lucky_Clover
+{
+private:
+    Quirales *head; // pInicio
+    Quirales *tail; // pFinal
 
-    public:
+public:
     Lucky_Clover();
     void InsertarInicio(void);
     void InsertarFinal(void);
@@ -28,25 +30,26 @@ class Lucky_Clover{
     void ArchivoEnvios(void);
     void CargarEnvios(void);
     void MenuAcciones(void);
-
 };
 
-Lucky_Clover::Lucky_Clover(){
+Lucky_Clover::Lucky_Clover()
+{
     head = nullptr;
-    tail = nullptr; 
+    tail = nullptr;
     CargarEnvios();
-    //limpiamos ambas listas
+    // limpiamos ambas listas
 }
 
-void Lucky_Clover::InsertarInicio(void){
+void Lucky_Clover::InsertarInicio(void)
+{
     Quirales *nuevo = new Quirales;
     int id;
     string name;
     float weight;
 
     cout << "Digite el id para la orden: ";
-    cin >> id; 
-    cout <<"Dijite el nombre: ";
+    cin >> id;
+    cout << "Dijite el nombre: ";
     getline(cin >> ws, name);
     cout << "Digite el peso del paquete: ";
     cin >> weight;
@@ -56,26 +59,29 @@ void Lucky_Clover::InsertarInicio(void){
     (*nuevo).weight = weight;
     (*nuevo).ant = nullptr;
 
-    if(head == nullptr){ //validos si nuestro primer valor es nulo
+    if (head == nullptr)
+    { // validos si nuestro primer valor es nulo
         (*nuevo).sig = nullptr;
-        head = tail = nuevo; //como no hay valor inicializamos el primero y el ultimo con el mismo valor 
-    } else {
+        head = tail = nuevo; // como no hay valor inicializamos el primero y el ultimo con el mismo valor
+    }
+    else
+    {
         (*nuevo).sig = head;
         head->ant = nuevo;
         head = nuevo;
     }
- 
 }
 
-void Lucky_Clover::InsertarFinal(void){
+void Lucky_Clover::InsertarFinal(void)
+{
     Quirales *nuevo = new Quirales;
     int id;
     string name;
     float weight;
 
     cout << "Digite el id para la orden: ";
-    cin >> id; 
-    cout <<"Dijite el nombre: ";
+    cin >> id;
+    cout << "Dijite el nombre: ";
     getline(cin >> ws, name);
     cout << "Digite el peso del paquete: ";
     cin >> weight;
@@ -85,15 +91,17 @@ void Lucky_Clover::InsertarFinal(void){
     (*nuevo).weight = weight;
     (*nuevo).sig = nullptr;
 
-    if(head == nullptr){ //validos si nuestro primer valor es nulo
+    if (head == nullptr)
+    { // validos si nuestro primer valor es nulo
         (*nuevo).ant = nullptr;
-        head = tail = nuevo; //como no hay valor inicializamos el primero y el ultimo con el mismo valor 
-    } else {
+        head = tail = nuevo; // como no hay valor inicializamos el primero y el ultimo con el mismo valor
+    }
+    else
+    {
         (*nuevo).ant = tail;
         head->sig = nuevo;
         tail = nuevo;
     }
- 
 }
 
 void Lucky_Clover::MostrarInicio(void)
@@ -102,13 +110,14 @@ void Lucky_Clover::MostrarInicio(void)
     {
         Quirales *Rito = head;
 
-        while(Rito != nullptr){
+        while (Rito != nullptr)
+        {
 
-        cout << "id para la orden: " << Rito->id << endl;
-        cout << "Nombre: " << Rito->name << endl;
-        cout << "Peso del paquete: " << Rito->weight << endl;
-        Rito = Rito->sig;
-
+            cout << "id para la orden: " << Rito->id << endl;
+            cout << "Nombre: " << Rito->name << endl;
+            cout << "Peso del paquete: " << Rito->weight << endl;
+            cout << "---------------------" << endl;
+            Rito = Rito->sig;
         }
     }
     else
@@ -116,6 +125,140 @@ void Lucky_Clover::MostrarInicio(void)
         cout << "Aun no hay paquetes en la lista " << endl;
         return;
     }
+}
+
+void Lucky_Clover::MostrarFinal(void)
+{
+    if (tail != nullptr)
+    {
+        Quirales *Rito = tail;
+
+        while (Rito != nullptr)
+        {
+            cout << "id para la orden: " << Rito->id << endl;
+            cout << "Nombre: " << Rito->name << endl;
+            cout << "Peso del paquete: " << Rito->weight << endl;
+            cout << "---------------------"<< endl;
+            Rito = Rito->ant;
+        }
+    }
+    else
+    {
+        cout << "Aun no hay paquetes en la lista " << endl;
+    }
+}
+
+void Lucky_Clover::BuscarporId(void)
+{
+    if (head == nullptr)
+    {
+        cout << "La lista esta vacia.";
+        return;
+    }
+
+    int idBuscar;
+    cout << "Digite el id a buscar: ";
+    cin >> idBuscar;
+
+    Quirales *aux = head;
+
+    while (aux != nullptr)
+    {
+        if (aux->id == idBuscar)
+        {
+            cout << "Paquete encontrado: "<< endl;
+            cout << "Id: " << aux->id << endl;
+            cout << "Nombre: " << aux->name << endl;
+            cout << "Peso: " << aux->weight << endl;
+            return;
+        }
+
+        aux = aux->sig;
+    }
+
+    cout << "No se encontro el paquete."<< endl;
+}
+
+void Lucky_Clover::EliminarporId(void)
+{
+    if (head == nullptr)
+    {
+        cout << "Lista vacia.";
+        return;
+    }
+
+    int idEliminar;
+    cout << "Digite el id a eliminar: ";
+    cin >> idEliminar;
+
+    Quirales *aux = head;
+
+    while (aux != nullptr)
+    {
+
+        if (aux->id == idEliminar)
+        {
+
+            if (head == tail)
+            {
+                head = tail = nullptr;
+            }
+            else if (aux == head)
+            {
+                head = head->sig;
+                head->ant = nullptr;
+            }
+            else if (aux == tail)
+            {
+                tail = tail->ant;
+                tail->sig = nullptr;
+            }
+            else
+            {
+                aux->ant->sig = aux->sig;
+                aux->sig->ant = aux->ant;
+            }
+
+            delete aux;
+            cout << "Paquete eliminado."<< endl;
+            return;
+        }
+
+        aux = aux->sig;
+    }
+
+    cout << "No se encontro el paquete."<< endl;
+}
+
+void Lucky_Clover::ModificarporId(void)
+{
+    if(head== nullptr){
+        cout << "No hay paquetes que se puedan editar " << endl;
+        return;
+    } else {
+        
+    int idEdit;
+    cout << "Digite el id del paquete a editar: ";
+    cin >> idEdit;
+
+    Quirales *Search = head;
+    while (Search != nullptr)
+    {
+
+        if (Search->id == idEdit)
+        {
+            cout << "Nuevo nombre: ";
+            getline(cin >> ws, Search->name);
+            cout << "Nuevo peso: ";
+            cin >> Search->weight;
+
+            cout << "Se ha modificado la informacion del paquete. " << endl;
+
+        }
+        Search = Search->sig;
+    }
+    }
+    cout << "id Invalido" << endl;
 }
 
 void Lucky_Clover::ArchivoEnvios(void)
@@ -197,16 +340,20 @@ void Lucky_Clover::MenuAcciones(void)
         case 3:
             MostrarInicio();
             break;
-            // case 4:
-            // break;
-            // case 5:
-            // break;
-            // case 6:
-            // break;
-            // case 7:
-            // break;
+        case 4:
+            MostrarFinal();
+            break;
+        case 5:
+            BuscarporId();
+            break;
+        case 6:
+            EliminarporId();
+            break;
+        case 7:
+            ModificarporId();
+            break;
         case 8:
-            ArchivoEnvios();   
+            ArchivoEnvios();
             cout << "Saliendo....";
             break;
         }
